@@ -1,0 +1,435 @@
+var currentScene = 0;
+
+//buttons to play the game: night 1, night 2.. and so on
+var Button = function(config)
+{
+    this.x = config.x || 0;
+    this.y = config.y || 0;
+    this.width = config.width || 150;
+    this.height = config.height || 50;
+    this.label = config.label || "Click";
+    this.onClick = config.onClick || function() {};
+};
+
+Button.prototype.draw = function()
+{
+    stroke(84, 0, 0);
+    fill(224, 49, 18);
+    rect(this.x, this.y, this.width, this.height, 5);
+    fill(255, 255, 255);
+    textSize(19);
+    textAlign(CENTER,CENTER);
+    text(this.label, this.x + this.width/2, this.y + this.height/2);
+};
+
+Button.prototype.isMouseInside = function()
+{
+    return mouseX > this.x &&
+           mouseX < (this.x + this.width) &&
+           mouseY > this.y &&
+           mouseY < (this.y + this.height);
+};
+
+Button.prototype.handleMouseClick = function()
+{
+    if (this.isMouseInside())
+    {
+        this.onClick();
+    }
+};
+
+var helpbtn = new Button
+({
+    x: 10,
+    y: 340,
+    width: 80,
+    label: "help",
+    onClick: function()
+    {
+        currentScene = 1;
+    }
+});
+
+var backbtn = new Button
+({
+    x: 10,
+    y: 340,
+    width: 80,
+    label: "back",
+    onClick: function()
+    {
+        currentScene = 0;
+    }
+});
+
+var compbtn = new Button
+({
+    x: 10,
+    y: 340,
+    width: 80,
+    label: "back",
+    onClick: function()
+    {
+        currentScene = 3;
+    }
+});
+
+var night1btn = new Button
+({
+    x: 80,
+    y: 150,
+    width: 105,
+    label: "Night 1",
+    onClick: function()
+    {
+        currentScene = 2;
+    }
+});
+
+
+var splashScreen = function()
+{
+    currentScene = 0;
+    background(46, 46, 46);
+    var f = createFont("monospace");
+    textFont(f);
+    fill(255, 10, 10);
+    textSize(30);
+    textAlign(CENTER);
+    text("Five Nights At Freddy's ", 110, 25, 200, 400);
+    helpbtn.draw();
+    night1btn.draw();
+};
+
+var helpScreen = function()
+{
+    currentScene = 1;
+    background(46, 46, 46);
+    var f = createFont("monospace");
+    textFont(f);
+    fill(255, 255, 255);
+    textAlign(CENTER,CENTER);
+    textSize(28);
+    text("Need Help?", 200, 55);
+    textSize(15);
+    text("How to play: Click on night 1 to get started. Try and find the animatronics by clicking on the computer screen to get the different scenes of Freddy Fazbear's Pizzeria and clicking on the animatronic. Once you found it, the next night will open up. Have fun!!", 50, -10, 308, 400);
+    backbtn.draw();
+};
+
+var office = function()
+{
+    currentScene = 2;
+    noStroke();
+    rectMode(CENTER);
+    background(158, 155, 155);
+    fill(0, 0, 0);
+    rect(200, 150, 175, 130);
+    rect(200, 230, 20, 40);
+    rect(200, 250, 50, 7);
+    fill(121, 165, 184);
+    rect(200, 150, 165, 120); //computer screen
+    fill(145, 105, 68);
+    rect(200, 275, 380, 46);
+    rect(35, 340, 30, 119);
+    rect(365, 340, 30, 119);
+    
+    var night = color(17, 38, 74, 102);
+    fill(night);
+    rect(200, 200, 500, 500);
+    var lamp = color(250, 245, 168, 102);
+    fill(lamp);
+    quad(150, 0, 250, 0, 350, 270, 50, 270);
+};
+
+var compScreen = function()
+{
+    currentScene = 3;
+    rectMode(CENTER);
+    var f = createFont("monospace");
+    textFont(f);
+    background(86, 121, 156);
+    stroke(214, 214, 214);
+    fill(93, 101, 115);
+    rect(200, 310, 90, 70); //YOU
+    rect(85, 210, 90, 70); //CAM 1
+    rect(85, 110, 90, 70); //CAM 2
+    rect(200, 110, 90, 70);//CAM 3
+    rect(315, 110, 90, 70);//CAM 4
+    rect(315, 210, 90, 70);//CAM 5
+    
+    fill(214, 214, 214);
+    textSize(20);
+    textAlign(CENTER, CENTER);
+    text("YOU", 200, 310);
+    text("CAM 1", 85, 210);
+    text("CAM 2", 85, 110);
+    text("CAM 3", 200, 110);
+    text("CAM 4", 315, 110);
+    text("CAM 5", 315, 210);
+    
+    line(85, 245, 85, 310);
+    line(85, 310, 155, 310);
+    line(85, 145, 85, 175);
+    line(130, 110, 155, 110);
+    line(245, 110, 270, 110);
+    line(315, 145, 315, 175);
+    line(315, 245, 315, 310);
+    line(245, 310, 315, 310);
+};
+
+var cam1 = function()
+{
+    currentScene = 4;
+    noStroke();
+    rectMode(CENTER);
+    background(158, 155, 155);
+    fill(122, 106, 83);
+    quad(150, 150, 250, 150, 370, 400, 30, 400);
+    fill(138, 136, 136);
+    rect(200, 75, 100, 150);
+    fill(87, 81, 81);
+    rect(200, 100, 60, 100);
+    quad(100, 90, 100, 255, 70, 320, 70, 135);
+    
+    var night = color(11, 13, 18, 102);
+    fill(night);
+    rect(200, 200, 500, 500);
+    rectMode(LEFT);
+    compbtn.draw();
+};
+
+var cam2 = function()
+{
+    currentScene = 5;
+    noStroke();
+    rectMode(CENTER);
+    background(158, 155, 155);
+    fill(122, 106, 83);
+    quad(-30, 225, 250, 225, 370, 400, -77, 400);
+    fill(138, 136, 136);
+    rect(120, 110, 260, 230);
+    fill(87, 81, 81);
+    quad(325, 120, 325, 335, 285, 275, 285, 75);
+    
+    fill(87, 56, 18);
+    quad(-10, 40, 250, 40, 270, 50, -10, 50);
+    quad(-10, 110, 250, 110, 270, 120, -10, 120);
+    quad(-10, 180, 250, 180, 270, 190, -10, 190);
+    
+    fill(87, 70, 45);
+    quad(-65, 215, 65, 215, 120, 350, -25, 350);
+    fill(64, 51, 33);
+    rect(10, 355, 220, 15);
+    rect(110, 385, 20, 70);
+    
+    var night = color(11, 13, 18, 102);
+    fill(night);
+    rect(200, 200, 500, 500);
+    rectMode(LEFT);
+    compbtn.draw();
+};
+
+var cam3 = function()
+{
+    currentScene = 6;
+    background(207, 174, 174);
+    rectMode(LEFT);
+    compbtn.draw();
+};
+
+var cam4 = function()
+{
+    currentScene = 7;
+    noStroke();
+    rectMode(CENTER);
+    background(158, 155, 155);
+    fill(122, 106, 83);
+    quad(100, 150, 300, 150, 550, 400, -150, 400);
+    fill(138, 136, 136);
+    rect(200, 75, 200, 150);
+    fill(214, 230, 229);
+    quad(160, 120, 315, 120, 350, 150, 150, 150);
+    fill(163, 194, 192);
+    rect(250, 167, 200, 35);
+    
+    fill(214, 230, 229);
+    quad(140, 175, 380, 175, 465, 240, 120, 240);
+    fill(87, 70, 45);
+    rect(150, 300, 20, 60);
+    
+    fill(163, 194, 192);
+    rect(275, 262, 310, 45);
+    
+    fill(87, 81, 81);
+    quad(80, 20, 80, 170, 10, 240, 10, 90);
+    
+    var night = color(11, 13, 18, 102);
+    fill(night);
+    rect(200, 200, 500, 500);
+    rectMode(LEFT);
+    compbtn.draw();
+};
+
+var cam5 = function()
+{
+    currentScene = 8;
+    noStroke();
+    rectMode(CENTER);
+    background(158, 155, 155);
+    fill(122, 106, 83);
+    quad(150, 150, 250, 150, 370, 400, 30, 400);
+    fill(138, 136, 136);
+    rect(200, 75, 100, 150);
+    fill(87, 81, 81);
+    rect(200, 100, 60, 100);
+    quad(100, 90, 100, 255, 70, 320, 70, 135);
+    quad(275, 65, 300, 110, 300, 256, 275, 202);
+    
+    var night = color(11, 13, 18, 102);
+    fill(night);
+    rect(200, 200, 500, 500);
+    rectMode(LEFT);
+    compbtn.draw();
+};
+
+mouseClicked = function(){
+    if (currentScene === 0)//splash screen
+    {
+        helpbtn.handleMouseClick();
+        night1btn.handleMouseClick();
+    }
+    else if(currentScene === 1)//help screen
+    {
+        backbtn.handleMouseClick();
+    }
+    else if(currentScene === 2 && mouseX > 115 && mouseX < 285 && mouseY > 90 && mouseY < 210)
+    {
+        currentScene = 3;
+    }
+    else if(currentScene === 3)//computer screen
+    {
+        if(mouseX > 155 && mouseX < 245 && mouseY > 275 && mouseY < 345)//you
+        {
+            currentScene = 2;
+        }
+        else if(mouseX > 40 && mouseX < 130 && mouseY > 175 && mouseY < 245)//cam1
+        {
+            currentScene = 4;
+        }
+        else if(mouseX > 40 && mouseX < 130 && mouseY > 75 && mouseY < 145)//cam2
+        {
+            currentScene = 5;
+        }
+        else if(mouseX > 155 && mouseX < 245 && mouseY > 75 && mouseY < 145)//cam3
+        {
+            currentScene = 6;
+        }
+        else if(mouseX > 270 && mouseX < 360 && mouseY > 75 && mouseY < 145)//cam4
+        {
+            currentScene = 7;
+        }
+        else if(mouseX > 270 && mouseX < 360 && mouseY > 175 && mouseY < 245)//cam4
+        {
+            currentScene = 8;
+        }
+    }
+    else if(currentScene === 4)//cam1
+    {
+        compbtn.handleMouseClick();
+        if(mouseX <= 150)
+        {
+            currentScene = 8;
+        }
+        else if(mouseX > 250)
+        {
+            currentScene++;
+        }
+    }
+    else if(currentScene === 5)//cam2
+    {
+        compbtn.handleMouseClick();
+        if(mouseX <= 150)
+        {
+            currentScene--;
+        }
+        else if(mouseX > 250)
+        {
+            currentScene++;
+        }
+    }
+    else if(currentScene === 6)//cam3
+    {
+        compbtn.handleMouseClick();
+        if(mouseX <= 150)
+        {
+            currentScene--;
+        }
+        else if(mouseX > 250)
+        {
+            currentScene++;
+        }
+    }
+    else if(currentScene === 7)//cam4
+    {
+        compbtn.handleMouseClick();
+        if(mouseX <= 150)
+        {
+            currentScene--;
+        }
+        else if(mouseX > 250)
+        {
+            currentScene++;
+        }
+    }
+    else if(currentScene === 8)//cam5
+    {
+        compbtn.handleMouseClick();
+        if(mouseX <= 150)
+        {
+            currentScene--;
+        }
+        else if(mouseX > 250)
+        {
+            currentScene = 4;
+        }
+    }
+};
+
+draw = function() {
+    if (currentScene === 0)
+    {
+        splashScreen();
+    }
+    else if (currentScene === 1)
+    {
+        helpScreen();
+    }
+    else if(currentScene === 2)
+    {
+        office();
+    }
+    else if(currentScene === 3)
+    {
+        compScreen();
+    }
+    else if(currentScene === 4)
+    {
+        cam1();
+    }
+    else if(currentScene === 5)
+    {
+        cam2();
+    }
+    else if(currentScene === 6)
+    {
+        cam3();
+    }
+    else if(currentScene === 7)
+    {
+        cam4();
+    }
+    else if(currentScene === 8)
+    {
+        cam5();
+    }
+};
