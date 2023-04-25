@@ -1,0 +1,159 @@
+var office = function()
+{
+    noStroke();
+    rectMode(CENTER);
+    background(158, 155, 155);
+    fill(0, 0, 0);
+    rect(200, 150, 175, 130);
+    rect(200, 230, 20, 40);
+    rect(200, 250, 50, 7);
+    fill(121, 165, 184);
+    rect(200, 150, 165, 120); //computer screen
+    fill(145, 105, 68);
+    rect(200, 275, 380, 46);
+    rect(35, 340, 30, 119);
+    rect(365, 340, 30, 119);
+    
+    var night = color(17, 38, 74, 102);
+    fill(night);
+    rect(200, 200, 500, 500);
+    var lamp = color(250, 245, 168, 102);
+    fill(lamp);
+    quad(150, 0, 250, 0, 350, 270, 50, 270);
+};
+
+var compScreen = function()
+{
+    rectMode(CENTER);
+    var f = createFont("monospace");
+    textFont(f);
+    background(86, 121, 156);
+    stroke(214, 214, 214);
+    fill(93, 101, 115);
+    rect(200, 310, 90, 70); //YOU
+    rect(85, 210, 90, 70); //CAM 1
+    rect(85, 110, 90, 70); //CAM 2
+    rect(200, 110, 90, 70);//CAM 3
+    rect(315, 110, 90, 70);//CAM 4
+    rect(315, 210, 90, 70);//CAM 5
+    
+    fill(214, 214, 214);
+    textSize(20);
+    textAlign(CENTER, CENTER);
+    text("YOU", 200, 310);
+    text("CAM 1", 85, 210);
+    text("CAM 2", 85, 110);
+    text("CAM 3", 200, 110);
+    text("CAM 4", 315, 110);
+    text("CAM 5", 315, 210);
+    
+    line(85, 245, 85, 310);
+    line(85, 310, 155, 310);
+    line(85, 145, 85, 175);
+    line(130, 110, 155, 110);
+    line(245, 110, 270, 110);
+    line(315, 145, 315, 175);
+    line(315, 245, 315, 310);
+    line(245, 310, 315, 310);
+};
+
+var cam1 = function()
+{
+    noStroke();
+    rectMode(CENTER);
+    background(158, 155, 155);
+    fill(122, 106, 83);
+    quad(150, 150, 250, 150, 370, 400, 30, 400);
+    fill(138, 136, 136);
+    rect(200, 75, 100, 150);
+    fill(87, 81, 81);
+    rect(200, 100, 60, 100);
+    quad(100, 90, 100, 255, 70, 320, 70, 135);
+    
+    var night = color(11, 13, 18, 102);
+    fill(night);
+    rect(200, 200, 500, 500);
+};
+
+var cam2 = function()
+{
+    noStroke();
+    rectMode(CENTER);
+    background(158, 155, 155);
+    fill(122, 106, 83);
+    quad(-30, 225, 250, 225, 370, 400, -77, 400);
+    fill(138, 136, 136);
+    rect(120, 110, 260, 230);
+    fill(87, 81, 81);
+    quad(325, 120, 325, 335, 285, 275, 285, 75);
+    
+    fill(87, 56, 18);
+    quad(-10, 40, 250, 40, 270, 50, -10, 50);
+    quad(-10, 110, 250, 110, 270, 120, -10, 120);
+    quad(-10, 180, 250, 180, 270, 190, -10, 190);
+    
+    fill(87, 70, 45);
+    quad(-65, 215, 65, 215, 120, 350, -25, 350);
+    fill(64, 51, 33);
+    rect(10, 355, 220, 15);
+    rect(110, 385, 20, 70);
+    
+    var night = color(11, 13, 18, 102);
+    fill(night);
+    rect(200, 200, 500, 500);
+};
+
+var cam3 = function()
+{
+    
+};
+
+var cam4 = function()
+{
+    noStroke();
+    rectMode(CENTER);
+    background(158, 155, 155);
+    fill(122, 106, 83);
+    quad(100, 150, 300, 150, 550, 400, -150, 400);
+    fill(138, 136, 136);
+    rect(200, 75, 200, 150);
+    fill(214, 230, 229);
+    quad(160, 120, 315, 120, 350, 150, 150, 150);
+    fill(163, 194, 192);
+    rect(250, 167, 200, 35);
+    
+    fill(214, 230, 229);
+    quad(140, 175, 380, 175, 465, 240, 120, 240);
+    fill(87, 70, 45);
+    rect(150, 300, 20, 60);
+    
+    fill(163, 194, 192);
+    rect(275, 262, 310, 45);
+    
+    fill(87, 81, 81);
+    quad(80, 20, 80, 170, 10, 240, 10, 90);
+    
+    var night = color(11, 13, 18, 102);
+    fill(night);
+    rect(200, 200, 500, 500);
+};
+
+var cam5 = function()
+{
+    noStroke();
+    rectMode(CENTER);
+    background(158, 155, 155);
+    fill(122, 106, 83);
+    quad(150, 150, 250, 150, 370, 400, 30, 400);
+    fill(138, 136, 136);
+    rect(200, 75, 100, 150);
+    fill(87, 81, 81);
+    rect(200, 100, 60, 100);
+    quad(100, 90, 100, 255, 70, 320, 70, 135);
+    quad(275, 65, 300, 110, 300, 256, 275, 202);
+    
+    var night = color(11, 13, 18, 102);
+    fill(night);
+    rect(200, 200, 500, 500);
+};
+cam5();
