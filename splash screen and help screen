@@ -1,0 +1,142 @@
+var currentScene = 0;
+
+//buttons to play the game: night 1, night 2.. and so on
+var Button = function(config) {
+    this.x = config.x || 0;
+    this.y = config.y || 0;
+    this.width = config.width || 150;
+    this.height = config.height || 50;
+    this.label = config.label || "Click";
+    this.onClick = config.onClick || function() {};
+};
+
+Button.prototype.draw = function() {
+    fill(93,89,50);
+    rect(this.x, this.y, this.width, this.height, 5);
+    fill(255, 255, 255);
+    textSize(19);
+    textAlign(CENTER,CENTER);
+    text(this.label, this.x+74, this.y+this.height/2);
+};
+
+Button.prototype.isMouseInside = function() {
+    return mouseX > this.x &&
+           mouseX < (this.x + this.width) &&
+           mouseY > this.y &&
+           mouseY < (this.y + this.height);
+};
+
+Button.prototype.handleMouseClick = function() {
+    if (this.isMouseInside()) {
+        this.onClick();
+    }
+};
+
+var helpbtn = new Button({
+    x: 10,
+    y: 340,
+    label: "help",
+    onClick: function() {
+        
+        currentScene = 1;
+    }
+});
+
+var night1btn = new Button({
+    x: 23,
+    y: 135,
+    label: "Night 1",
+    onClick: function() {
+        currentScene = 2;
+    }
+});
+
+var night2btn = new Button({
+    x: 218,
+    y: 135,
+    label: "Night 2",
+    onClick: function() {
+        currentScene = 2;
+    }
+});
+
+var night3btn = new Button({
+    x: 23,
+    y: 200,
+    label: "Night 3",
+    onClick: function() {
+        currentScene = 2;
+    }
+});
+
+var night4btn = new Button({
+    x: 218,
+    y: 200,
+    label: "Night 4",
+    onClick: function() {
+        currentScene = 2;
+    }
+});
+
+var night5btn = new Button({
+    x: 121,
+    y: 258,
+    label: "Night 5",
+    onClick: function() {
+        currentScene = 2;
+    }
+});
+
+var splashScreen = function() {
+    
+    currentScene = 0;
+    background(100,60,68);
+    var f = createFont("monospace");
+    textFont(f);
+    fill(160,13,199);
+    textAlign(CENTER,CENTER);
+    textSize(28);
+    text("Five Nights At Freddy's",200,85);
+    helpbtn.draw();
+    night1btn.draw();
+    night2btn.draw();
+    night3btn.draw();
+    night4btn.draw();
+    night5btn.draw();
+};
+
+var helpScreen = function(){
+    
+    currentScene = 1;
+    background(63,60,39);
+    var f = createFont("monospace");
+    textFont(f);
+    fill(255, 255, 255);
+    textAlign(CENTER,CENTER);
+    textSize(28);
+    text("need help?",200,85);
+    textSize(10);
+    text("How to play: Click on night 1 to get started. Try and find the animatronics by clicking on the computer screen to get the different scenes of Freddy Fazbear's Pizza place and clicking on the animatronic. Once you found it, the next night will open up. Have fun!!", 50, 96, 308, 131);
+    
+};
+
+mouseClicked = function(){
+    if (currentScene === 0)
+    {
+        helpbtn.handleMouseClick();
+    }
+    
+};
+
+
+
+draw = function() {
+    if (currentScene === 0)
+    {
+        splashScreen();
+    }
+    else if (currentScene === 1)
+    {
+        helpScreen();
+    }
+};
