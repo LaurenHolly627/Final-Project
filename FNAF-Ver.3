@@ -1,0 +1,1443 @@
+var currentScene = 0;
+var startTime = 0;
+//var fredNum = round(random(1, 50));
+var bonNum = round(random(1, 30));
+var chicaNum = round(random(1, 30));
+println(bonNum);
+println(chicaNum);
+
+noStroke();
+
+var head = function(hX, hY, hH)
+{
+    //ears
+    fill(153, 145, 145);
+    rect(hX + (hH/100*76), hY + (hH/100*-9), (hH/100*4), (hH/100*-3));
+    rect(hX + (hH/100*119), hY + (hH/100*-9), (hH/100*4), (hH/100*-3));
+    fill(138, 76, 22);
+    rect(hX + (hH/100*65), hY + (hH/100*-18), (hH/100*13), (hH/100*12), 25);
+    rect(hX + (hH/100*122), hY + (hH/100*-18), (hH/100*13), (hH/100*12), 25);
+
+    //headshape
+    fill(138, 76, 22);
+    ellipse(hX + (hH/100*100), hY + (hH/100*10), (hH/100*60), (hH/100*30));//cheekbones
+    ellipse(hX + (hH/100*100), hY + (hH/100*-11), (hH/100*40), (hH/100*23));//top of head
+    quad(hX + (hH/100*80), hY + (hH/100*-13), hX + (hH/100*120), hY + (hH/100*-13), hX + (hH/100*128), hY + (hH/100*10), hX + (hH/100*72.5), hY + (hH/100*10));//sides of head
+    quad(hX + (hH/100*78), hY + (hH/100*10), hX + (hH/100*122), hY + (hH/100*10), hX + (hH/100*120), hY + (hH/100*30), hX + (hH/100*80), hY + (hH/100*30));//chin
+    ellipse(hX + (hH/100*100), hY + (hH/100*28), (hH/100*40), (hH/100*20));//curve of chin
+    
+    //mouth
+    fill(38, 16, 5);
+    quad(hX + (hH/100*85), hY + (hH/100*17), hX + (hH/100*115), hY + (hH/100*17), hX + (hH/100*113), hY + (hH/100*27), hX + (hH/100*87), hY + (hH/100*27));
+    
+    //teeth
+    fill(238, 202, 184);
+    rect(hX + (hH/100*88), hY + (hH/100*23), (hH/100*4), (hH/100*4));
+    rect(hX + (hH/100*94), hY + (hH/100*23), (hH/100*4), (hH/100*4));
+    rect(hX + (hH/100*101), hY + (hH/100*23), (hH/100*4), (hH/100*4));
+    rect(hX + (hH/100*108), hY + (hH/100*23), (hH/100*4), (hH/100*4));
+    
+    //eyes
+    fill(0, 0, 0);
+    ellipse(hX + (hH/100*90), hY + (hH/100*0), (hH/100*13.5), (hH/100*14));
+    ellipse(hX + (hH/100*109), hY + (hH/100*0), (hH/100*13.5), (hH/100*14));
+    fill(240, 223, 223);
+    ellipse(hX + (hH/100*90.5), hY + (hH/100*0), (hH/100*10), (hH/100*10));
+    ellipse(hX + (hH/100*108.5), hY + (hH/100*0), (hH/100*10), (hH/100*10));
+    fill(103, 149, 191);
+    ellipse(hX + (hH/100*90.5), hY + (hH/100*0.5), (hH/100*5.5), (hH/100*5.5));
+    ellipse(hX + (hH/100*108.5), hY + (hH/100*0.5), (hH/100*5.5), (hH/100*5.5));
+    fill(28, 17, 17);
+    ellipse(hX + (hH/100*90.7), hY + (hH/100*0.5), (hH/100*3), (hH/100*3));
+    ellipse(hX + (hH/100*108.5), hY + (hH/100*0.5), (hH/100*3), (hH/100*3));
+    
+    //snout
+    fill(163, 103, 41);
+    rect(hX + (hH/100*83), hY + (hH/100*7), (hH/100*33.5), (hH/100*13), 20);//snout
+    ellipse(hX + (hH/100*85), hY + (hH/100*13.5), (hH/100*10), (hH/100*13));
+    ellipse(hX + (hH/100*115), hY + (hH/100*13.5), (hH/100*10), (hH/100*13));
+    ellipse(hX + (hH/100*100), hY + (hH/100*8), (hH/100*32), (hH/100*8));
+
+    //nose
+    fill(51, 35, 35);
+    ellipse(hX + (hH/100*100), hY + (hH/100*5), (hH/100*18), (hH/100*10));
+    
+    //eyebrows
+    fill(46, 23, 23);
+    quad(hX + (hH/100*82), hY + (hH/100*-10), hX + (hH/100*89), hY + (hH/100*-11), hX + (hH/100*94), hY + (hH/100*-9), hX + (hH/100*83), hY + (hH/100*-7));
+    quad(hX + (hH/100*110), hY + (hH/100*-11), hX + (hH/100*117), hY + (hH/100*-10), hX + (hH/100*116), hY + (hH/100*-7), hX + (hH/100*105), hY + (hH/100*-9));
+ 
+    //hat
+    fill(20, 10, 10);
+    rect(hX + (hH/100*84.2), hY + (hH/100*-24), (hH/100*32), (hH/100*4), 10);
+    rect(hX + (hH/100*87.5), hY + (hH/100*-40), (hH/100*25), (hH/100*19), 5);
+};
+
+var body = function(bX, bY, bH)
+{
+    fill(138, 76, 22);//base body shape
+    quad(bX + (bH/100*80), bY + (bH/100*35), bX + (bH/100*120), bY + (bH/100*35), bX + (bH/100*125), bY + (bH/100*95), bX + (bH/100*75), bY + (bH/100*95));
+    
+    beginShape();
+    fill(138, 76, 22);//right side curve
+    vertex(bX + (bH/100*120), bY + (bH/100*55));
+    bezierVertex(bX + (bH/100*135), bY + (bH/100*90), bX + (bH/100*125), bY + (bH/100*95), bX + (bH/100*124), bY + (bH/100*95));
+    endShape();
+    
+    beginShape();
+    fill(138, 76, 22);//left side curve
+    vertex(bX + (bH/100*80), bY + (bH/100*55));
+    bezierVertex(bX + (bH/100*65), bY + (bH/100*90), bX + (bH/100*75), bY + (bH/100*95), bX + (bH/100*76), bY + (bH/100*95));
+    endShape();
+    
+    beginShape();
+    fill(138, 76, 22);//bottom curve
+    vertex(bX + (bH/100*125), bY + (bH/100*94));
+    bezierVertex(bX + (bH/100*120), bY + (bH/100*100), bX + (bH/100*80), bY + (bH/100*100), bX + (bH/100*75), bY + (bH/100*94));
+    endShape();
+    
+    fill(163, 103, 41);//stomach
+    rect(bX + (bH/100*85), bY + (bH/100*45), (bH/100*30), (bH/100*40), 30);
+    rect(bX + (bH/100*83), bY + (bH/100*63), (bH/100*35), (bH/100*35), 30);
+    
+    fill(0, 0, 0);//bowtie
+    ellipse(bX + (bH/100*100), bY + (bH/100*40), (bH/100*10), (bH/100*10));
+    triangle(bX + (bH/100*85), bY + (bH/100*35), bX + (bH/100*100), bY + (bH/100*40), bX + (bH/100*86), bY + (bH/100*46));
+    ellipse(bX + (bH/100*100), bY + (bH/100*40), (bH/100*10), (bH/100*10));
+    triangle(bX + (bH/100*115), bY + (bH/100*35), bX + (bH/100*100), bY + (bH/100*40), bX + (bH/100*114), bY + (bH/100*46));
+};
+
+var arms = function(aX, aY, aH)
+{
+    fill(110, 110, 110);
+    
+    //right arm
+    rect(aX + (aH/100*56), aY + (aH/100*86), (aH/100*5), (aH/100*10));
+    rect(aX + (aH/100*141), aY + (aH/100*86), (aH/100*5), (aH/100*10));
+    rect(aX + (aH/100*120), aY + (aH/100*40), (aH/100*15), (aH/100*5));
+    
+    fill(138, 76, 22); //triangle piece
+    triangle(aX + (aH/100*120), aY + (aH/100*33), aX + (aH/100*133), aY + (aH/100*37), aX + (aH/100*123), aY + (aH/100*45));
+    beginShape();
+    vertex(aX + (aH/100*120), aY + (aH/100*33.5));
+    bezierVertex(aX + (aH/100*125), aY + (aH/100*30), aX + (aH/100*133), aY + (aH/100*33), aX + (aH/100*132.5), aY + (aH/100*37.5));
+    endShape();
+    
+    fill(138, 76, 22);//upper arm
+    beginShape();
+    vertex(aX + (aH/100*130), aY + (aH/100*42));
+    bezierVertex(aX + (aH/100*145), aY + (aH/100*30), aX + (aH/100*155), aY + (aH/100*60), aX + (aH/100*145), aY + (aH/100*65));
+    bezierVertex(aX + (aH/100*135), aY + (aH/100*77), aX + (aH/100*115), aY + (aH/100*48), aX + (aH/100*130), aY + (aH/100*42));
+    endShape();
+    
+    //Forearm
+    rect(aX + (aH/100*135), aY + (aH/100*65), (aH/100*15), (aH/100*25), 8);
+    beginShape();
+    vertex(aX + (aH/100*138), aY + (aH/100*65));
+    bezierVertex(aX + (aH/100*130), aY + (aH/100*64), aX + (aH/100*133), aY + (aH/100*91), aX + (aH/100*137), aY + (aH/100*89));
+    endShape();
+    beginShape();
+    vertex(aX + (aH/100*148), aY + (aH/100*66));
+    bezierVertex(aX + (aH/100*155), aY + (aH/100*67), aX + (aH/100*152), aY + (aH/100*91), aX + (aH/100*148), aY + (aH/100*88));
+    endShape();
+    
+    //right hand
+    quad(aX + (aH/100*137), aY + (aH/100*90), aX + (aH/100*150), aY + (aH/100*93), aX + (aH/100*154), aY + (aH/100*107), aX + (aH/100*135), aY + (aH/100*100));
+    quad(aX + (aH/100*130), aY + (aH/100*95), aX + (aH/100*137), aY + (aH/100*91), aX + (aH/100*136), aY + (aH/100*100), aX + (aH/100*133), aY + (aH/100*101));
+    beginShape();
+    vertex(aX + (aH/100*130), aY + (aH/100*95));
+    bezierVertex(aX + (aH/100*120), aY + (aH/100*114), aX + (aH/100*135), aY + (aH/100*102), aX + (aH/100*134), aY + (aH/100*100));
+    endShape();
+    beginShape();
+    vertex(aX + (aH/100*135), aY + (aH/100*99));
+    bezierVertex(aX + (aH/100*125), aY + (aH/100*125), aX + (aH/100*138), aY + (aH/100*110), aX + (aH/100*141), aY + (aH/100*102));
+    endShape();
+    beginShape();
+    vertex(aX + (aH/100*141.5), aY + (aH/100*102));
+    bezierVertex(aX + (aH/100*129), aY + (aH/100*129), aX + (aH/100*145), aY + (aH/100*111), aX + (aH/100*148), aY + (aH/100*104));
+    endShape();
+    beginShape();
+    vertex(aX + (aH/100*148.3), aY + (aH/100*104));
+    bezierVertex(aX + (aH/100*137), aY + (aH/100*130), aX + (aH/100*153), aY + (aH/100*113), aX + (aH/100*154), aY + (aH/100*106));
+    endShape();
+    
+    //left arm
+    fill(110, 110, 110);
+    rect(aX + (aH/100*65), aY + (aH/100*40), (aH/100*15), (aH/100*5));
+    
+    //triangle piece
+    fill(138, 76, 22);
+    triangle(aX + (aH/100*80), aY + (aH/100*33), aX + (aH/100*67), aY + (aH/100*37), aX + (aH/100*77), aY + (aH/100*45));
+    beginShape();
+    vertex(aX + (aH/100*80), aY + (aH/100*33.5));
+    bezierVertex(aX + (aH/100*78), aY + (aH/100*30), aX + (aH/100*67), aY + (aH/100*33), aX + (aH/100*67.5), aY + (aH/100*37.5));
+    endShape();
+    
+    //upper arm
+    beginShape();
+    vertex(aX + (aH/100*70), aY + (aH/100*42));
+    bezierVertex(aX + (aH/100*55), aY + (aH/100*30), aX + (aH/100*45), aY + (aH/100*60), aX + (aH/100*55), aY + (aH/100*65));
+    bezierVertex(aX + (aH/100*65), aY + (aH/100*77), aX + (aH/100*85), aY + (aH/100*48), aX + (aH/100*70), aY + (aH/100*42));
+    endShape();
+    
+    //Forearm
+    rect(aX + (aH/100*52), aY + (aH/100*65), (aH/100*15), (aH/100*25), 8);
+    beginShape();
+    vertex(aX + (aH/100*55), aY + (aH/100*65));
+    bezierVertex(aX + (aH/100*46), aY + (aH/100*67), aX + (aH/100*49), aY + (aH/100*91), aX + (aH/100*55), aY + (aH/100*89));
+    endShape();
+    beginShape();
+    vertex(aX + (aH/100*63), aY + (aH/100*66));
+    bezierVertex(aX + (aH/100*72), aY + (aH/100*64), aX + (aH/100*69), aY + (aH/100*91), aX + (aH/100*63), aY + (aH/100*88));
+    endShape();
+    
+    //left hand
+    quad(aX + (aH/100*65), aY + (aH/100*90), aX + (aH/100*52), aY + (aH/100*93), aX + (aH/100*48), aY + (aH/100*107), aX + (aH/100*67), aY + (aH/100*100));
+    quad(aX + (aH/100*72), aY + (aH/100*95), aX + (aH/100*65), aY + (aH/100*91), aX + (aH/100*66), aY + (aH/100*100), aX + (aH/100*69), aY + (aH/100*101));
+    beginShape();
+    vertex(aX + (aH/100*72), aY + (aH/100*95));
+    bezierVertex(aX + (aH/100*78), aY + (aH/100*113), aX + (aH/100*67), aY + (aH/100*100), aX + (aH/100*69), aY + (aH/100*99));
+    endShape();
+    beginShape();
+    vertex(aX + (aH/100*67), aY + (aH/100*99));
+    bezierVertex(aX + (aH/100*75), aY + (aH/100*125), aX + (aH/100*64), aY + (aH/100*110), aX + (aH/100*61), aY + (aH/100*102));
+    endShape();
+    beginShape();
+    vertex(aX + (aH/100*61), aY + (aH/100*102));
+    bezierVertex(aX + (aH/100*70), aY + (aH/100*129), aX + (aH/100*55), aY + (aH/100*109), aX + (aH/100*54), aY + (aH/100*104));
+    endShape();
+    beginShape();
+    vertex(aX + (aH/100*54), aY + (aH/100*104));
+    bezierVertex(aX + (aH/100*60), aY + (aH/100*129), aX + (aH/100*50), aY + (aH/100*113), aX + (aH/100*48), aY + (aH/100*106.7));
+    endShape();
+};
+
+var legs = function(lX, lY, lH)
+{
+    fill(110, 110, 110);
+    rect(lX + (lH/100*95), lY + (lH/100*90), (lH/100*10), (lH/100*15));
+    rect(lX + (lH/100*80), lY + (lH/100*105), (lH/100*8), (lH/100*15));
+    rect(lX + (lH/100*112), lY + (lH/100*105), (lH/100*8), (lH/100*15));
+    rect(lX + (lH/100*110), lY + (lH/100*135), (lH/100*10), (lH/100*10));
+    rect(lX + (lH/100*80), lY + (lH/100*135), (lH/100*10), (lH/100*10));
+    rect(lX + (lH/100*81), lY + (lH/100*165), (lH/100*9), (lH/100*15));
+    rect(lX + (lH/100*110), lY + (lH/100*165), (lH/100*9), (lH/100*15));
+
+    fill(138, 76, 22); //elvis
+    quad(lX + (lH/100*82.5), lY + (lH/100*99), lX + (lH/100*101), lY + (lH/100*103), lX + (lH/100*101), lY + (lH/100*110), lX + (lH/100*85), lY + (lH/100*110));
+    quad(lX + (lH/100*83), lY + (lH/100*99), lX + (lH/100*75), lY + (lH/100*99), lX + (lH/100*74), lY + (lH/100*105), lX + (lH/100*86), lY + (lH/100*110));
+    quad(lX + (lH/100*119), lY + (lH/100*99), lX + (lH/100*99), lY + (lH/100*103), lX + (lH/100*99), lY + (lH/100*110), lX + (lH/100*116), lY + (lH/100*110));
+    quad(lX + (lH/100*125), lY + (lH/100*99), lX + (lH/100*118), lY + (lH/100*99), lX + (lH/100*115), lY + (lH/100*110), lX + (lH/100*126), lY + (lH/100*105));
+    quad(lX + (lH/100*85), lY + (lH/100*109), lX + (lH/100*116), lY + (lH/100*109), lX + (lH/100*107), lY + (lH/100*115), lX + (lH/100*94), lY + (lH/100*115));
+    
+    //right thigh
+    rect(lX + (lH/100*105), lY + (lH/100*116), (lH/100*19), (lH/100*25), 3);
+    triangle(lX + (lH/100*105), lY + (lH/100*116.5), lX + (lH/100*124), lY + (lH/100*116.5), lX + (lH/100*124), lY + (lH/100*109));
+    beginShape();
+    vertex(lX + (lH/100*123), lY + (lH/100*110));
+    bezierVertex(lX + (lH/100*137), lY + (lH/100*100), lX + (lH/100*130), lY + (lH/100*139), lX + (lH/100*123), lY + (lH/100*141));
+    endShape();
+    
+    beginShape();
+    vertex(lX + (lH/100*105), lY + (lH/100*116));
+    bezierVertex(lX + (lH/100*102), lY + (lH/100*118), lX + (lH/100*102), lY + (lH/100*140), lX + (lH/100*105), lY + (lH/100*140));
+    endShape();
+    
+    //right knee
+    ellipse(lX + (lH/100*116), lY + (lH/100*145), (lH/100*21), (lH/100*8));
+    
+    //right calf
+    rect(lX + (lH/100*106.5), lY + (lH/100*148), (lH/100*19), (lH/100*25), 3);
+    beginShape();
+    vertex(lX + (lH/100*107), lY + (lH/100*149));
+    bezierVertex(lX + (lH/100*104), lY + (lH/100*150), lX + (lH/100*104), lY + (lH/100*170), lX + (lH/100*107), lY + (lH/100*173));
+    endShape();
+    beginShape();
+    vertex(lX + (lH/100*125), lY + (lH/100*149));
+    bezierVertex(lX + (lH/100*128), lY + (lH/100*146), lX + (lH/100*128), lY + (lH/100*170), lX + (lH/100*125), lY + (lH/100*173));
+    endShape();
+    
+    //right foot
+    quad(lX + (lH/100*110), lY + (lH/100*175), lX + (lH/100*120), lY + (lH/100*175), lX + (lH/100*133), lY + (lH/100*180), lX + (lH/100*103), lY + (lH/100*180));
+    rect(lX + (lH/100*103), lY + (lH/100*180), (lH/100*30), (lH/100*7));
+
+     //left thigh
+    rect(lX + (lH/100*77), lY + (lH/100*116), (lH/100*19), (lH/100*25), 3);
+    triangle(lX + (lH/100*96), lY + (lH/100*116.5), lX + (lH/100*77), lY + (lH/100*116.5), lX + (lH/100*77), lY + (lH/100*109));
+    beginShape();
+    vertex(lX + (lH/100*78), lY + (lH/100*110));
+    bezierVertex(lX + (lH/100*65), lY + (lH/100*100), lX + (lH/100*70), lY + (lH/100*139), lX + (lH/100*78), lY + (lH/100*141));
+    endShape();
+    beginShape();
+    vertex(lX + (lH/100*95), lY + (lH/100*116));
+    bezierVertex(lX + (lH/100*98), lY + (lH/100*118), lX + (lH/100*98), lY + (lH/100*140), lX + (lH/100*95), lY + (lH/100*140));
+    endShape();
+    
+    //left knee
+    ellipse(lX + (lH/100*85), lY + (lH/100*145), (lH/100*21), (lH/100*8));
+    
+    //left calf
+    rect(lX + (lH/100*75), lY + (lH/100*148), (lH/100*19), (lH/100*25), 3);
+    beginShape();
+    vertex(lX + (lH/100*76), lY + (lH/100*149));
+    bezierVertex(lX + (lH/100*73), lY + (lH/100*150), lX + (lH/100*73), lY + (lH/100*170), lX + (lH/100*76), lY + (lH/100*173));
+    endShape();
+    beginShape();
+    vertex(lX + (lH/100*93), lY + (lH/100*149));
+    bezierVertex(lX + (lH/100*96), lY + (lH/100*146), lX + (lH/100*96), lY + (lH/100*170), lX + (lH/100*93), lY + (lH/100*173));
+    endShape();
+
+    //left foot
+    quad(lX + (lH/100*90), lY + (lH/100*175), lX + (lH/100*78), lY + (lH/100*175), lX + (lH/100*67), lY + (lH/100*180), lX + (lH/100*97), lY + (lH/100*180));
+    rect(lX + (lH/100*67), lY + (lH/100*180), (lH/100*30), (lH/100*7));
+};
+
+var drawFreddy = function(x, y, h)
+{
+    rectMode(LEFT);
+    arms(x, y, h);
+    legs(x, y, h);
+    body(x, y, h);
+    head(x, y, h);
+};
+
+noStroke();
+
+var bonhead = function(hX, hY, hH)
+{
+    //ears
+    fill(153, 145, 145);
+    rect(hX + (hH/100*83), hY + (hH/100*-20), (hH/100*7), (hH/100*10));
+    rect(hX + (hH/100*109), hY + (hH/100*-20), (hH/100*7), (hH/100*10));
+    fill(92, 85, 173);
+    
+    fill(92, 85, 173);//left ear
+    rect(hX + (hH/100*78), hY + (hH/100*-39), (hH/100*15), (hH/100*22), 10);
+    ellipse(hX + (hH/100*84), hY + (hH/100*-42), (hH/100*13), (hH/100*22));
+    fill(114, 107, 140);
+    rect(hX + (hH/100*81), hY + (hH/100*-35), (hH/100*9), (hH/100*15), 10);
+    ellipse(hX + (hH/100*84), hY + (hH/100*-42), (hH/100*7), (hH/100*14));
+    
+    fill(92, 85, 173);//right ear
+    rect(hX + (hH/100*107), hY + (hH/100*-39), (hH/100*15), (hH/100*22), 10);
+    ellipse(hX + (hH/100*115), hY + (hH/100*-42), (hH/100*13), (hH/100*22));
+    fill(114, 107, 140);
+    rect(hX + (hH/100*110), hY + (hH/100*-35), (hH/100*9), (hH/100*15), 10);
+    ellipse(hX + (hH/100*115), hY + (hH/100*-42), (hH/100*7), (hH/100*14));
+    
+    //headshape
+    fill(92, 85, 173);
+    ellipse(hX + (hH/100*100), hY + (hH/100*15), (hH/100*55), (hH/100*40));//cheekbones
+    ellipse(hX + (hH/100*100), hY + (hH/100*-6), (hH/100*40), (hH/100*23));//top of head
+    quad(hX + (hH/100*80), hY + (hH/100*-7), hX + (hH/100*120), hY + (hH/100*-7), hX + (hH/100*123), hY + (hH/100*10), hX + (hH/100*77), hY + (hH/100*10));//sides of head
+    quad(hX + (hH/100*78), hY + (hH/100*10), hX + (hH/100*122), hY + (hH/100*10), hX + (hH/100*120), hY + (hH/100*30), hX + (hH/100*80), hY + (hH/100*30));//chin
+    ellipse(hX + (hH/100*100), hY + (hH/100*28), (hH/100*40), (hH/100*20));//curve of chin
+    
+    //mouth
+    fill(38, 16, 5);
+    quad(hX + (hH/100*85), hY + (hH/100*17), hX + (hH/100*115), hY + (hH/100*17), hX + (hH/100*113), hY + (hH/100*27), hX + (hH/100*87), hY + (hH/100*27));
+    
+    //teeth
+    fill(238, 202, 184);
+    rect(hX + (hH/100*88), hY + (hH/100*23), (hH/100*4), (hH/100*4));
+    rect(hX + (hH/100*94), hY + (hH/100*23), (hH/100*4), (hH/100*4));
+    rect(hX + (hH/100*101), hY + (hH/100*23), (hH/100*4), (hH/100*4));
+    rect(hX + (hH/100*108), hY + (hH/100*23), (hH/100*4), (hH/100*4));
+    
+    //eyes
+    fill(0, 0, 0);
+    ellipse(hX + (hH/100*90), hY + (hH/100*4), (hH/100*13.5), (hH/100*14));
+    ellipse(hX + (hH/100*109), hY + (hH/100*4), (hH/100*13.5), (hH/100*14));
+    fill(240, 223, 223);
+    ellipse(hX + (hH/100*90.5), hY + (hH/100*4), (hH/100*10), (hH/100*10));
+    ellipse(hX + (hH/100*108.5), hY + (hH/100*4), (hH/100*10), (hH/100*10));
+    fill(153, 39, 161);
+    ellipse(hX + (hH/100*90.5), hY + (hH/100*4.5), (hH/100*5.5), (hH/100*5.5));
+    ellipse(hX + (hH/100*108.5), hY + (hH/100*4.5), (hH/100*5.5), (hH/100*5.5));
+    fill(28, 17, 17);
+    ellipse(hX + (hH/100*90.7), hY + (hH/100*4.5), (hH/100*3), (hH/100*3));
+    ellipse(hX + (hH/100*108.5), hY + (hH/100*4.5), (hH/100*3), (hH/100*3));
+    
+    //snout
+    fill(114, 107, 140);
+    rect(hX + (hH/100*87.5), hY + (hH/100*10), (hH/100*27), (hH/100*11), 20);//snout
+    ellipse(hX + (hH/100*88), hY + (hH/100*16), (hH/100*10), (hH/100*10));
+    ellipse(hX + (hH/100*112), hY + (hH/100*16), (hH/100*10), (hH/100*10));
+    ellipse(hX + (hH/100*100), hY + (hH/100*14), (hH/100*32), (hH/100*8));
+
+    //nose
+    fill(51, 35, 35);
+    ellipse(hX + (hH/100*100), hY + (hH/100*9), (hH/100*13), (hH/100*7));
+};
+
+var bonbody = function(bX, bY, bH)
+{
+    fill(92, 85, 173);//base body shape
+    quad(bX + (bH/100*80), bY + (bH/100*35), bX + (bH/100*120), bY + (bH/100*35), bX + (bH/100*125), bY + (bH/100*95), bX + (bH/100*75), bY + (bH/100*95));
+    
+    beginShape();
+    fill(92, 85, 173);//right side curve
+    vertex(bX + (bH/100*120), bY + (bH/100*55));
+    bezierVertex(bX + (bH/100*135), bY + (bH/100*90), bX + (bH/100*125), bY + (bH/100*95), bX + (bH/100*124), bY + (bH/100*95));
+    endShape();
+    
+    beginShape();
+    fill(92, 85, 173);//left side curve
+    vertex(bX + (bH/100*80), bY + (bH/100*55));
+    bezierVertex(bX + (bH/100*65), bY + (bH/100*90), bX + (bH/100*75), bY + (bH/100*95), bX + (bH/100*76), bY + (bH/100*95));
+    endShape();
+    
+    beginShape();
+    fill(92, 85, 173);//bottom curve
+    vertex(bX + (bH/100*125), bY + (bH/100*94));
+    bezierVertex(bX + (bH/100*120), bY + (bH/100*100), bX + (bH/100*80), bY + (bH/100*100), bX + (bH/100*75), bY + (bH/100*94));
+    endShape();
+    
+    fill(114, 107, 140);//stomach
+    rect(bX + (bH/100*85), bY + (bH/100*45), (bH/100*30), (bH/100*40), 30);
+    rect(bX + (bH/100*83), bY + (bH/100*63), (bH/100*35), (bH/100*35), 30);
+    
+    fill(117, 0, 37);//bowtie
+    ellipse(bX + (bH/100*100), bY + (bH/100*40), (bH/100*10), (bH/100*10));
+    triangle(bX + (bH/100*85), bY + (bH/100*35), bX + (bH/100*100), bY + (bH/100*40), bX + (bH/100*86), bY + (bH/100*46));
+    ellipse(bX + (bH/100*100), bY + (bH/100*40), (bH/100*10), (bH/100*10));
+    triangle(bX + (bH/100*115), bY + (bH/100*35), bX + (bH/100*100), bY + (bH/100*40), bX + (bH/100*114), bY + (bH/100*46));
+};
+
+var bonarms = function(aX, aY, aH)
+{
+    fill(110, 110, 110);
+    
+    //right arm
+    rect(aX + (aH/100*56), aY + (aH/100*86), (aH/100*5), (aH/100*10));
+    rect(aX + (aH/100*141), aY + (aH/100*86), (aH/100*5), (aH/100*10));
+    rect(aX + (aH/100*120), aY + (aH/100*40), (aH/100*15), (aH/100*5));
+    
+    fill(92, 85, 173); //triangle piece
+    triangle(aX + (aH/100*120), aY + (aH/100*33), aX + (aH/100*133), aY + (aH/100*37), aX + (aH/100*123), aY + (aH/100*45));
+    beginShape();
+    vertex(aX + (aH/100*120), aY + (aH/100*33.5));
+    bezierVertex(aX + (aH/100*125), aY + (aH/100*30), aX + (aH/100*133), aY + (aH/100*33), aX + (aH/100*132.5), aY + (aH/100*37.5));
+    endShape();
+    
+    //upper arm
+    beginShape();
+    vertex(aX + (aH/100*130), aY + (aH/100*42));
+    bezierVertex(aX + (aH/100*145), aY + (aH/100*30), aX + (aH/100*155), aY + (aH/100*60), aX + (aH/100*145), aY + (aH/100*65));
+    bezierVertex(aX + (aH/100*135), aY + (aH/100*77), aX + (aH/100*115), aY + (aH/100*48), aX + (aH/100*130), aY + (aH/100*42));
+    endShape();
+    
+    //Forearm
+    rect(aX + (aH/100*135), aY + (aH/100*65), (aH/100*15), (aH/100*25), 8);
+    beginShape();
+    vertex(aX + (aH/100*138), aY + (aH/100*65));
+    bezierVertex(aX + (aH/100*130), aY + (aH/100*64), aX + (aH/100*133), aY + (aH/100*91), aX + (aH/100*137), aY + (aH/100*89));
+    endShape();
+    beginShape();
+    vertex(aX + (aH/100*148), aY + (aH/100*66));
+    bezierVertex(aX + (aH/100*155), aY + (aH/100*67), aX + (aH/100*152), aY + (aH/100*91), aX + (aH/100*148), aY + (aH/100*88));
+    endShape();
+    
+    //right hand
+    quad(aX + (aH/100*137), aY + (aH/100*90), aX + (aH/100*150), aY + (aH/100*93), aX + (aH/100*154), aY + (aH/100*107), aX + (aH/100*135), aY + (aH/100*100));
+    quad(aX + (aH/100*130), aY + (aH/100*95), aX + (aH/100*137), aY + (aH/100*91), aX + (aH/100*136), aY + (aH/100*100), aX + (aH/100*133), aY + (aH/100*101));
+    beginShape();
+    vertex(aX + (aH/100*130), aY + (aH/100*95));
+    bezierVertex(aX + (aH/100*120), aY + (aH/100*114), aX + (aH/100*135), aY + (aH/100*102), aX + (aH/100*134), aY + (aH/100*100));
+    endShape();
+    beginShape();
+    vertex(aX + (aH/100*135), aY + (aH/100*99));
+    bezierVertex(aX + (aH/100*125), aY + (aH/100*125), aX + (aH/100*138), aY + (aH/100*110), aX + (aH/100*141), aY + (aH/100*102));
+    endShape();
+    beginShape();
+    vertex(aX + (aH/100*141.5), aY + (aH/100*102));
+    bezierVertex(aX + (aH/100*129), aY + (aH/100*129), aX + (aH/100*145), aY + (aH/100*111), aX + (aH/100*148), aY + (aH/100*104));
+    endShape();
+    beginShape();
+    vertex(aX + (aH/100*148.3), aY + (aH/100*104));
+    bezierVertex(aX + (aH/100*137), aY + (aH/100*130), aX + (aH/100*153), aY + (aH/100*113), aX + (aH/100*154), aY + (aH/100*106));
+    endShape();
+    
+    //left arm
+    fill(110, 110, 110);
+    rect(aX + (aH/100*65), aY + (aH/100*40), (aH/100*15), (aH/100*5));
+    
+    //triangle piece
+    fill(92, 85, 173);
+    triangle(aX + (aH/100*80), aY + (aH/100*33), aX + (aH/100*67), aY + (aH/100*37), aX + (aH/100*77), aY + (aH/100*45));
+    beginShape();
+    vertex(aX + (aH/100*80), aY + (aH/100*33.5));
+    bezierVertex(aX + (aH/100*78), aY + (aH/100*30), aX + (aH/100*67), aY + (aH/100*33), aX + (aH/100*67.5), aY + (aH/100*37.5));
+    endShape();
+    
+    //upper arm
+    beginShape();
+    vertex(aX + (aH/100*70), aY + (aH/100*42));
+    bezierVertex(aX + (aH/100*55), aY + (aH/100*30), aX + (aH/100*45), aY + (aH/100*60), aX + (aH/100*55), aY + (aH/100*65));
+    bezierVertex(aX + (aH/100*65), aY + (aH/100*77), aX + (aH/100*85), aY + (aH/100*48), aX + (aH/100*70), aY + (aH/100*42));
+    endShape();
+    
+    //Forearm
+    rect(aX + (aH/100*52), aY + (aH/100*65), (aH/100*15), (aH/100*25), 8);
+    beginShape();
+    vertex(aX + (aH/100*55), aY + (aH/100*65));
+    bezierVertex(aX + (aH/100*46), aY + (aH/100*67), aX + (aH/100*49), aY + (aH/100*91), aX + (aH/100*55), aY + (aH/100*89));
+    endShape();
+    beginShape();
+    vertex(aX + (aH/100*63), aY + (aH/100*66));
+    bezierVertex(aX + (aH/100*72), aY + (aH/100*64), aX + (aH/100*69), aY + (aH/100*91), aX + (aH/100*63), aY + (aH/100*88));
+    endShape();
+    
+    //left hand
+    quad(aX + (aH/100*65), aY + (aH/100*90), aX + (aH/100*52), aY + (aH/100*93), aX + (aH/100*48), aY + (aH/100*107), aX + (aH/100*67), aY + (aH/100*100));
+    quad(aX + (aH/100*72), aY + (aH/100*95), aX + (aH/100*65), aY + (aH/100*91), aX + (aH/100*66), aY + (aH/100*100), aX + (aH/100*69), aY + (aH/100*101));
+    beginShape();
+    vertex(aX + (aH/100*72), aY + (aH/100*95));
+    bezierVertex(aX + (aH/100*78), aY + (aH/100*113), aX + (aH/100*67), aY + (aH/100*100), aX + (aH/100*69), aY + (aH/100*99));
+    endShape();
+    beginShape();
+    vertex(aX + (aH/100*67), aY + (aH/100*99));
+    bezierVertex(aX + (aH/100*75), aY + (aH/100*125), aX + (aH/100*64), aY + (aH/100*110), aX + (aH/100*61), aY + (aH/100*102));
+    endShape();
+    beginShape();
+    vertex(aX + (aH/100*61), aY + (aH/100*102));
+    bezierVertex(aX + (aH/100*70), aY + (aH/100*129), aX + (aH/100*55), aY + (aH/100*109), aX + (aH/100*54), aY + (aH/100*104));
+    endShape();
+    beginShape();
+    vertex(aX + (aH/100*54), aY + (aH/100*104));
+    bezierVertex(aX + (aH/100*60), aY + (aH/100*129), aX + (aH/100*50), aY + (aH/100*113), aX + (aH/100*48), aY + (aH/100*106.7));
+    endShape();
+};
+
+var bonlegs = function(lX, lY, lH)
+{
+    fill(110, 110, 110);
+    rect(lX + (lH/100*95), lY + (lH/100*90), (lH/100*10), (lH/100*15));
+    rect(lX + (lH/100*80), lY + (lH/100*105), (lH/100*8), (lH/100*15));
+    rect(lX + (lH/100*112), lY + (lH/100*105), (lH/100*8), (lH/100*15));
+    rect(lX + (lH/100*110), lY + (lH/100*135), (lH/100*10), (lH/100*10));
+    rect(lX + (lH/100*80), lY + (lH/100*135), (lH/100*10), (lH/100*10));
+    rect(lX + (lH/100*81), lY + (lH/100*165), (lH/100*9), (lH/100*15));
+    rect(lX + (lH/100*110), lY + (lH/100*165), (lH/100*9), (lH/100*15));
+
+    fill(92, 85, 173); // //elvis
+    quad(lX + (lH/100*82.5), lY + (lH/100*99), lX + (lH/100*101), lY + (lH/100*103), lX + (lH/100*101), lY + (lH/100*110), lX + (lH/100*85), lY + (lH/100*110));
+    quad(lX + (lH/100*83), lY + (lH/100*99), lX + (lH/100*75), lY + (lH/100*99), lX + (lH/100*74), lY + (lH/100*105), lX + (lH/100*86), lY + (lH/100*110));
+    quad(lX + (lH/100*119), lY + (lH/100*99), lX + (lH/100*99), lY + (lH/100*103), lX + (lH/100*99), lY + (lH/100*110), lX + (lH/100*116), lY + (lH/100*110));
+    quad(lX + (lH/100*125), lY + (lH/100*99), lX + (lH/100*118), lY + (lH/100*99), lX + (lH/100*115), lY + (lH/100*110), lX + (lH/100*126), lY + (lH/100*105));
+    quad(lX + (lH/100*85), lY + (lH/100*109), lX + (lH/100*116), lY + (lH/100*109), lX + (lH/100*107), lY + (lH/100*115), lX + (lH/100*94), lY + (lH/100*115));
+    
+    //right thigh
+    rect(lX + (lH/100*105), lY + (lH/100*116), (lH/100*19), (lH/100*25), 3);
+    triangle(lX + (lH/100*105), lY + (lH/100*116.5), lX + (lH/100*124), lY + (lH/100*116.5), lX + (lH/100*124), lY + (lH/100*109));
+    beginShape();
+    vertex(lX + (lH/100*123), lY + (lH/100*110));
+    bezierVertex(lX + (lH/100*137), lY + (lH/100*100), lX + (lH/100*130), lY + (lH/100*139), lX + (lH/100*123), lY + (lH/100*141));
+    endShape();
+    
+    beginShape();
+    vertex(lX + (lH/100*105), lY + (lH/100*116));
+    bezierVertex(lX + (lH/100*102), lY + (lH/100*118), lX + (lH/100*102), lY + (lH/100*140), lX + (lH/100*105), lY + (lH/100*140));
+    endShape();
+    
+    //right knee
+    ellipse(lX + (lH/100*116), lY + (lH/100*145), (lH/100*21), (lH/100*8));
+    
+    //right calf
+    rect(lX + (lH/100*106.5), lY + (lH/100*148), (lH/100*19), (lH/100*25), 3);
+    beginShape();
+    vertex(lX + (lH/100*107), lY + (lH/100*149));
+    bezierVertex(lX + (lH/100*104), lY + (lH/100*150), lX + (lH/100*104), lY + (lH/100*170), lX + (lH/100*107), lY + (lH/100*173));
+    endShape();
+    beginShape();
+    vertex(lX + (lH/100*125), lY + (lH/100*149));
+    bezierVertex(lX + (lH/100*128), lY + (lH/100*146), lX + (lH/100*128), lY + (lH/100*170), lX + (lH/100*125), lY + (lH/100*173));
+    endShape();
+    
+    //right foot
+    quad(lX + (lH/100*110), lY + (lH/100*175), lX + (lH/100*120), lY + (lH/100*175), lX + (lH/100*133), lY + (lH/100*180), lX + (lH/100*103), lY + (lH/100*180));
+    rect(lX + (lH/100*103), lY + (lH/100*180), (lH/100*30), (lH/100*7));
+
+     //left thigh
+    rect(lX + (lH/100*77), lY + (lH/100*116), (lH/100*19), (lH/100*25), 3);
+    triangle(lX + (lH/100*96), lY + (lH/100*116.5), lX + (lH/100*77), lY + (lH/100*116.5), lX + (lH/100*77), lY + (lH/100*109));
+    beginShape();
+    vertex(lX + (lH/100*78), lY + (lH/100*110));
+    bezierVertex(lX + (lH/100*65), lY + (lH/100*100), lX + (lH/100*70), lY + (lH/100*139), lX + (lH/100*78), lY + (lH/100*141));
+    endShape();
+    beginShape();
+    vertex(lX + (lH/100*95), lY + (lH/100*116));
+    bezierVertex(lX + (lH/100*98), lY + (lH/100*118), lX + (lH/100*98), lY + (lH/100*140), lX + (lH/100*95), lY + (lH/100*140));
+    endShape();
+    
+    //left knee
+    ellipse(lX + (lH/100*85), lY + (lH/100*145), (lH/100*21), (lH/100*8));
+    
+    //left calf
+    rect(lX + (lH/100*75), lY + (lH/100*148), (lH/100*19), (lH/100*25), 3);
+    beginShape();
+    vertex(lX + (lH/100*76), lY + (lH/100*149));
+    bezierVertex(lX + (lH/100*73), lY + (lH/100*150), lX + (lH/100*73), lY + (lH/100*170), lX + (lH/100*76), lY + (lH/100*173));
+    endShape();
+    beginShape();
+    vertex(lX + (lH/100*93), lY + (lH/100*149));
+    bezierVertex(lX + (lH/100*96), lY + (lH/100*146), lX + (lH/100*96), lY + (lH/100*170), lX + (lH/100*93), lY + (lH/100*173));
+    endShape();
+
+    //left foot
+    quad(lX + (lH/100*90), lY + (lH/100*175), lX + (lH/100*78), lY + (lH/100*175), lX + (lH/100*67), lY + (lH/100*180), lX + (lH/100*97), lY + (lH/100*180));
+    rect(lX + (lH/100*67), lY + (lH/100*180), (lH/100*30), (lH/100*7));
+};
+
+var drawBonnie = function(x, y, h)
+{
+    rectMode(LEFT);
+    bonarms(x, y, h);
+    bonlegs(x, y, h);
+    bonbody(x, y, h);
+    bonhead(x, y, h);
+};
+
+noStroke();
+
+var chicahead = function(hX, hY, hH)
+{
+    //floof
+    fill(235, 195, 76);
+    ellipse(hX + (hH/100*100), hY + (hH/100*-2), (hH/100*12), (hH/100*56));
+    triangle(hX + (hH/100*85), hY + (hH/100*-26), hX + (hH/100*107), hY + (hH/100*-10), hX + (hH/100*97), hY + (hH/100*6));
+    triangle(hX + (hH/100*115), hY + (hH/100*-26), hX + (hH/100*102), hY + (hH/100*15), hX + (hH/100*92), hY + (hH/100*-7));
+
+    //headshape
+    fill(235, 195, 76);
+    ellipse(hX + (hH/100*100), hY + (hH/100*10), (hH/100*54), (hH/100*56));//head
+    ellipse(hX + (hH/100*100), hY + (hH/100*28), (hH/100*40), (hH/100*20));//chin
+    
+    //mouth
+    fill(38, 16, 5);
+    quad(hX + (hH/100*86), hY + (hH/100*20), hX + (hH/100*114), hY + (hH/100*20), hX + (hH/100*113), hY + (hH/100*27), hX + (hH/100*87), hY + (hH/100*27));
+    
+    //teeth
+    fill(238, 202, 184);
+    rect(hX + (hH/100*88), hY + (hH/100*23), (hH/100*4), (hH/100*4));
+    rect(hX + (hH/100*94), hY + (hH/100*23), (hH/100*4), (hH/100*4));
+    rect(hX + (hH/100*101), hY + (hH/100*23), (hH/100*4), (hH/100*4));
+    rect(hX + (hH/100*108), hY + (hH/100*23), (hH/100*4), (hH/100*4));
+    
+    //eyes
+    fill(0, 0, 0);
+    ellipse(hX + (hH/100*90), hY + (hH/100*6), (hH/100*13.5), (hH/100*14));
+    ellipse(hX + (hH/100*109), hY + (hH/100*6), (hH/100*13.5), (hH/100*14));
+    fill(240, 223, 223);
+    ellipse(hX + (hH/100*90.5), hY + (hH/100*6), (hH/100*10), (hH/100*10));
+    ellipse(hX + (hH/100*108.5), hY + (hH/100*6), (hH/100*10), (hH/100*10));
+    fill(192, 66, 194);
+    ellipse(hX + (hH/100*90.5), hY + (hH/100*6.5), (hH/100*5.5), (hH/100*5.5));
+    ellipse(hX + (hH/100*108.5), hY + (hH/100*6.5), (hH/100*5.5), (hH/100*5.5));
+    fill(28, 17, 17);
+    ellipse(hX + (hH/100*90.7), hY + (hH/100*6.5), (hH/100*3), (hH/100*3));
+    ellipse(hX + (hH/100*108.5), hY + (hH/100*6.5), (hH/100*3), (hH/100*3));
+    
+    //bottom beak
+    fill(237, 141, 31);
+    rect(hX + (hH/100*86), hY + (hH/100*27), (hH/100*27), (hH/100*6), 1);//snout
+    ellipse(hX + (hH/100*99.75), hY + (hH/100*33), (hH/100*26), (hH/100*9));
+
+    //beak
+    triangle(hX + (hH/100*100), hY + (hH/100*7), hX + (hH/100*115), hY + (hH/100*20), hX + (hH/100*85), hY + (hH/100*20));
+    
+    //eyebrows
+    fill(46, 23, 23);
+    quad(hX + (hH/100*86), hY + (hH/100*-6), hX + (hH/100*94), hY + (hH/100*-7), hX + (hH/100*94), hY + (hH/100*-4), hX + (hH/100*80), hY + (hH/100*-2));
+    quad(hX + (hH/100*105), hY + (hH/100*-7), hX + (hH/100*114), hY + (hH/100*-6), hX + (hH/100*120), hY + (hH/100*-2), hX + (hH/100*105), hY + (hH/100*-4));
+};
+
+var chicabody = function(bX, bY, bH)
+{
+    fill(235, 195, 76);//base body shape
+    quad(bX + (bH/100*80), bY + (bH/100*35), bX + (bH/100*120), bY + (bH/100*35), bX + (bH/100*125), bY + (bH/100*95), bX + (bH/100*75), bY + (bH/100*95));
+    
+    beginShape();
+    //right side curve
+    vertex(bX + (bH/100*120), bY + (bH/100*55));
+    bezierVertex(bX + (bH/100*135), bY + (bH/100*90), bX + (bH/100*125), bY + (bH/100*95), bX + (bH/100*124), bY + (bH/100*95));
+    endShape();
+    
+    beginShape();
+    //left side curve
+    vertex(bX + (bH/100*80), bY + (bH/100*55));
+    bezierVertex(bX + (bH/100*65), bY + (bH/100*90), bX + (bH/100*75), bY + (bH/100*95), bX + (bH/100*76), bY + (bH/100*95));
+    endShape();
+    
+    beginShape();
+    //bottom curve
+    vertex(bX + (bH/100*125), bY + (bH/100*94));
+    bezierVertex(bX + (bH/100*120), bY + (bH/100*100), bX + (bH/100*80), bY + (bH/100*100), bX + (bH/100*75), bY + (bH/100*94));
+    endShape();
+    
+    fill(237, 226, 216);//stomach
+    quad(bX + (bH/100*80), bY + (bH/100*35), bX + (bH/100*120), bY + (bH/100*35), bX + (bH/100*113), bY + (bH/100*61), bX + (bH/100*86), bY + (bH/100*61));
+    rect(bX + (bH/100*82.5), bY + (bH/100*36), (bH/100*35), (bH/100*37), 30);
+};
+
+var chicaarms = function(aX, aY, aH)
+{
+    fill(110, 110, 110);
+    
+    //right arm
+    rect(aX + (aH/100*56), aY + (aH/100*86), (aH/100*5), (aH/100*10));
+    rect(aX + (aH/100*141), aY + (aH/100*86), (aH/100*5), (aH/100*10));
+    rect(aX + (aH/100*120), aY + (aH/100*40), (aH/100*15), (aH/100*5));
+    
+    fill(235, 195, 76); //triangle piece
+    triangle(aX + (aH/100*120), aY + (aH/100*33), aX + (aH/100*133), aY + (aH/100*37), aX + (aH/100*123), aY + (aH/100*45));
+    beginShape();
+    vertex(aX + (aH/100*120), aY + (aH/100*33.5));
+    bezierVertex(aX + (aH/100*125), aY + (aH/100*30), aX + (aH/100*133), aY + (aH/100*33), aX + (aH/100*132.5), aY + (aH/100*37.5));
+    endShape();
+    
+    //upper arm
+    beginShape();
+    vertex(aX + (aH/100*130), aY + (aH/100*42));
+    bezierVertex(aX + (aH/100*145), aY + (aH/100*30), aX + (aH/100*155), aY + (aH/100*60), aX + (aH/100*145), aY + (aH/100*65));
+    bezierVertex(aX + (aH/100*135), aY + (aH/100*77), aX + (aH/100*115), aY + (aH/100*48), aX + (aH/100*130), aY + (aH/100*42));
+    endShape();
+    
+    //Forearm
+    rect(aX + (aH/100*135), aY + (aH/100*65), (aH/100*15), (aH/100*25), 8);
+    beginShape();
+    vertex(aX + (aH/100*138), aY + (aH/100*65));
+    bezierVertex(aX + (aH/100*130), aY + (aH/100*64), aX + (aH/100*133), aY + (aH/100*91), aX + (aH/100*137), aY + (aH/100*89));
+    endShape();
+    beginShape();
+    vertex(aX + (aH/100*148), aY + (aH/100*66));
+    bezierVertex(aX + (aH/100*155), aY + (aH/100*67), aX + (aH/100*152), aY + (aH/100*91), aX + (aH/100*148), aY + (aH/100*88));
+    endShape();
+    
+    //right hand
+    quad(aX + (aH/100*137), aY + (aH/100*90), aX + (aH/100*150), aY + (aH/100*93), aX + (aH/100*154), aY + (aH/100*107), aX + (aH/100*135), aY + (aH/100*100));
+    quad(aX + (aH/100*130), aY + (aH/100*95), aX + (aH/100*137), aY + (aH/100*91), aX + (aH/100*136), aY + (aH/100*100), aX + (aH/100*133), aY + (aH/100*101));
+    beginShape();
+    vertex(aX + (aH/100*130), aY + (aH/100*95));
+    bezierVertex(aX + (aH/100*120), aY + (aH/100*114), aX + (aH/100*135), aY + (aH/100*102), aX + (aH/100*134), aY + (aH/100*100));
+    endShape();
+    beginShape();
+    vertex(aX + (aH/100*135), aY + (aH/100*99));
+    bezierVertex(aX + (aH/100*125), aY + (aH/100*125), aX + (aH/100*138), aY + (aH/100*110), aX + (aH/100*141), aY + (aH/100*102));
+    endShape();
+    beginShape();
+    vertex(aX + (aH/100*141.5), aY + (aH/100*102));
+    bezierVertex(aX + (aH/100*129), aY + (aH/100*129), aX + (aH/100*145), aY + (aH/100*111), aX + (aH/100*148), aY + (aH/100*104));
+    endShape();
+    beginShape();
+    vertex(aX + (aH/100*148.3), aY + (aH/100*104));
+    bezierVertex(aX + (aH/100*137), aY + (aH/100*130), aX + (aH/100*153), aY + (aH/100*113), aX + (aH/100*154), aY + (aH/100*106));
+    endShape();
+    
+    //left arm
+    fill(110, 110, 110);
+    rect(aX + (aH/100*65), aY + (aH/100*40), (aH/100*15), (aH/100*5));
+    
+    //triangle piece
+    fill(235, 195, 76);
+    triangle(aX + (aH/100*80), aY + (aH/100*33), aX + (aH/100*67), aY + (aH/100*37), aX + (aH/100*77), aY + (aH/100*45));
+    beginShape();
+    vertex(aX + (aH/100*80), aY + (aH/100*33.5));
+    bezierVertex(aX + (aH/100*78), aY + (aH/100*30), aX + (aH/100*67), aY + (aH/100*33), aX + (aH/100*67.5), aY + (aH/100*37.5));
+    endShape();
+    
+    //upper arm
+    beginShape();
+    vertex(aX + (aH/100*70), aY + (aH/100*42));
+    bezierVertex(aX + (aH/100*55), aY + (aH/100*30), aX + (aH/100*45), aY + (aH/100*60), aX + (aH/100*55), aY + (aH/100*65));
+    bezierVertex(aX + (aH/100*65), aY + (aH/100*77), aX + (aH/100*85), aY + (aH/100*48), aX + (aH/100*70), aY + (aH/100*42));
+    endShape();
+    
+    //Forearm
+    rect(aX + (aH/100*52), aY + (aH/100*65), (aH/100*15), (aH/100*25), 8);
+    beginShape();
+    vertex(aX + (aH/100*55), aY + (aH/100*65));
+    bezierVertex(aX + (aH/100*46), aY + (aH/100*67), aX + (aH/100*49), aY + (aH/100*91), aX + (aH/100*55), aY + (aH/100*89));
+    endShape();
+    beginShape();
+    vertex(aX + (aH/100*63), aY + (aH/100*66));
+    bezierVertex(aX + (aH/100*72), aY + (aH/100*64), aX + (aH/100*69), aY + (aH/100*91), aX + (aH/100*63), aY + (aH/100*88));
+    endShape();
+    
+    //left hand
+    quad(aX + (aH/100*65), aY + (aH/100*90), aX + (aH/100*52), aY + (aH/100*93), aX + (aH/100*48), aY + (aH/100*107), aX + (aH/100*67), aY + (aH/100*100));
+    quad(aX + (aH/100*72), aY + (aH/100*95), aX + (aH/100*65), aY + (aH/100*91), aX + (aH/100*66), aY + (aH/100*100), aX + (aH/100*69), aY + (aH/100*101));
+    beginShape();
+    vertex(aX + (aH/100*72), aY + (aH/100*95));
+    bezierVertex(aX + (aH/100*78), aY + (aH/100*113), aX + (aH/100*67), aY + (aH/100*100), aX + (aH/100*69), aY + (aH/100*99));
+    endShape();
+    beginShape();
+    vertex(aX + (aH/100*67), aY + (aH/100*99));
+    bezierVertex(aX + (aH/100*75), aY + (aH/100*125), aX + (aH/100*64), aY + (aH/100*110), aX + (aH/100*61), aY + (aH/100*102));
+    endShape();
+    beginShape();
+    vertex(aX + (aH/100*61), aY + (aH/100*102));
+    bezierVertex(aX + (aH/100*70), aY + (aH/100*129), aX + (aH/100*55), aY + (aH/100*109), aX + (aH/100*54), aY + (aH/100*104));
+    endShape();
+    beginShape();
+    vertex(aX + (aH/100*54), aY + (aH/100*104));
+    bezierVertex(aX + (aH/100*60), aY + (aH/100*129), aX + (aH/100*50), aY + (aH/100*113), aX + (aH/100*48), aY + (aH/100*106.7));
+    endShape();
+};
+
+var chicalegs = function(lX, lY, lH)
+{
+    fill(110, 110, 110);
+    rect(lX + (lH/100*95), lY + (lH/100*90), (lH/100*10), (lH/100*15));
+    rect(lX + (lH/100*80), lY + (lH/100*105), (lH/100*8), (lH/100*15));
+    rect(lX + (lH/100*112), lY + (lH/100*105), (lH/100*8), (lH/100*15));
+    rect(lX + (lH/100*110), lY + (lH/100*135), (lH/100*10), (lH/100*10));
+    rect(lX + (lH/100*80), lY + (lH/100*135), (lH/100*10), (lH/100*10));
+    rect(lX + (lH/100*81), lY + (lH/100*165), (lH/100*9), (lH/100*15));
+    rect(lX + (lH/100*110), lY + (lH/100*165), (lH/100*9), (lH/100*15));
+
+    fill(235, 195, 76); //elvis
+    quad(lX + (lH/100*82.5), lY + (lH/100*99), lX + (lH/100*101), lY + (lH/100*103), lX + (lH/100*101), lY + (lH/100*110), lX + (lH/100*85), lY + (lH/100*110));
+    quad(lX + (lH/100*83), lY + (lH/100*99), lX + (lH/100*75), lY + (lH/100*99), lX + (lH/100*74), lY + (lH/100*105), lX + (lH/100*86), lY + (lH/100*110));
+    quad(lX + (lH/100*119), lY + (lH/100*99), lX + (lH/100*99), lY + (lH/100*103), lX + (lH/100*99), lY + (lH/100*110), lX + (lH/100*116), lY + (lH/100*110));
+    quad(lX + (lH/100*125), lY + (lH/100*99), lX + (lH/100*118), lY + (lH/100*99), lX + (lH/100*115), lY + (lH/100*110), lX + (lH/100*126), lY + (lH/100*105));
+    quad(lX + (lH/100*85), lY + (lH/100*109), lX + (lH/100*116), lY + (lH/100*109), lX + (lH/100*107), lY + (lH/100*115), lX + (lH/100*94), lY + (lH/100*115));
+    
+    //right thigh
+    rect(lX + (lH/100*105), lY + (lH/100*116), (lH/100*19), (lH/100*25), 3);
+    triangle(lX + (lH/100*105), lY + (lH/100*116.5), lX + (lH/100*124), lY + (lH/100*116.5), lX + (lH/100*124), lY + (lH/100*109));
+    beginShape();
+    vertex(lX + (lH/100*123), lY + (lH/100*110));
+    bezierVertex(lX + (lH/100*137), lY + (lH/100*100), lX + (lH/100*130), lY + (lH/100*139), lX + (lH/100*123), lY + (lH/100*141));
+    endShape();
+    
+    beginShape();
+    vertex(lX + (lH/100*105), lY + (lH/100*116));
+    bezierVertex(lX + (lH/100*102), lY + (lH/100*118), lX + (lH/100*102), lY + (lH/100*140), lX + (lH/100*105), lY + (lH/100*140));
+    endShape();
+    
+    //right knee
+    ellipse(lX + (lH/100*116), lY + (lH/100*145), (lH/100*21), (lH/100*8));
+    
+    //right calf
+    fill(237, 141, 31);
+    rect(lX + (lH/100*107.5), lY + (lH/100*148), (lH/100*15), (lH/100*25), 3);
+    beginShape();
+    vertex(lX + (lH/100*109), lY + (lH/100*149));
+    bezierVertex(lX + (lH/100*104), lY + (lH/100*150), lX + (lH/100*104), lY + (lH/100*170), lX + (lH/100*109), lY + (lH/100*173));
+    endShape();
+    beginShape();
+    vertex(lX + (lH/100*120), lY + (lH/100*149));
+    bezierVertex(lX + (lH/100*124), lY + (lH/100*146), lX + (lH/100*127), lY + (lH/100*170), lX + (lH/100*120), lY + (lH/100*173));
+    endShape();
+    
+    //right foot
+    quad(lX + (lH/100*110), lY + (lH/100*175), lX + (lH/100*120), lY + (lH/100*175), lX + (lH/100*133), lY + (lH/100*180), lX + (lH/100*103), lY + (lH/100*180));
+    rect(lX + (lH/100*103), lY + (lH/100*180), (lH/100*30), (lH/100*7));
+
+     //left thigh
+     fill(235, 195, 76);
+    rect(lX + (lH/100*77), lY + (lH/100*116), (lH/100*19), (lH/100*25), 3);
+    triangle(lX + (lH/100*96), lY + (lH/100*116.5), lX + (lH/100*77), lY + (lH/100*116.5), lX + (lH/100*77), lY + (lH/100*109));
+    beginShape();
+    vertex(lX + (lH/100*78), lY + (lH/100*110));
+    bezierVertex(lX + (lH/100*65), lY + (lH/100*100), lX + (lH/100*70), lY + (lH/100*139), lX + (lH/100*78), lY + (lH/100*141));
+    endShape();
+    beginShape();
+    vertex(lX + (lH/100*95), lY + (lH/100*116));
+    bezierVertex(lX + (lH/100*98), lY + (lH/100*118), lX + (lH/100*98), lY + (lH/100*140), lX + (lH/100*95), lY + (lH/100*140));
+    endShape();
+    
+    //left knee
+    ellipse(lX + (lH/100*85), lY + (lH/100*145), (lH/100*21), (lH/100*8));
+    
+    //left calf
+    fill(237, 141, 31);
+    rect(lX + (lH/100*78), lY + (lH/100*148), (lH/100*15), (lH/100*25), 3);
+    beginShape();
+    vertex(lX + (lH/100*80), lY + (lH/100*149));
+    bezierVertex(lX + (lH/100*77), lY + (lH/100*146), lX + (lH/100*73), lY + (lH/100*170), lX + (lH/100*81), lY + (lH/100*173));
+    endShape();
+    beginShape();
+    vertex(lX + (lH/100*92), lY + (lH/100*149));
+    bezierVertex(lX + (lH/100*96), lY + (lH/100*146), lX + (lH/100*98), lY + (lH/100*169), lX + (lH/100*92), lY + (lH/100*173));
+    endShape();
+
+    //left foot
+    quad(lX + (lH/100*90), lY + (lH/100*175), lX + (lH/100*78), lY + (lH/100*175), lX + (lH/100*67), lY + (lH/100*180), lX + (lH/100*97), lY + (lH/100*180));
+    rect(lX + (lH/100*67), lY + (lH/100*180), (lH/100*30), (lH/100*7));
+};
+
+var drawChica = function(x, y, h)
+{
+    rectMode(LEFT);
+    chicaarms(x, y, h);
+    chicalegs(x, y, h);
+    chicabody(x, y, h);
+    chicahead(x, y, h);
+};
+
+//buttons to play the game: night 1, night 2.. and so on
+var Button = function(config)
+{
+    this.x = config.x || 0;
+    this.y = config.y || 0;
+    this.width = config.width || 150;
+    this.height = config.height || 50;
+    this.label = config.label || "Click";
+    this.onClick = config.onClick || function() {};
+};
+
+Button.prototype.draw = function()
+{
+    stroke(84, 0, 0);
+    fill(224, 49, 18);
+    rect(this.x, this.y, this.width, this.height, 5);
+    fill(255, 255, 255);
+    textSize(19);
+    textAlign(CENTER,CENTER);
+    text(this.label, this.x + this.width/2, this.y + this.height/2);
+};
+
+Button.prototype.isMouseInside = function()
+{
+    return mouseX > this.x &&
+           mouseX < (this.x + this.width) &&
+           mouseY > this.y &&
+           mouseY < (this.y + this.height);
+};
+
+Button.prototype.handleMouseClick = function()
+{
+    if (this.isMouseInside())
+    {
+        this.onClick();
+    }
+};
+
+var helpbtn = new Button
+({
+    x: 10,
+    y: 340,
+    width: 80,
+    label: "help",
+    onClick: function()
+    {
+        currentScene = 1;
+    }
+});
+
+var backbtn = new Button
+({
+    x: 10,
+    y: 340,
+    width: 80,
+    label: "back",
+    onClick: function()
+    {
+        currentScene = 0;
+    }
+});
+
+var compbtn = new Button
+({
+    x: 10,
+    y: 350,
+    width: 60,
+    height: 40,
+    label: "back",
+    onClick: function()
+    {
+        currentScene = 3;
+    }
+});
+
+var night1btn = new Button
+({
+    x: 80,
+    y: 150,
+    width: 105,
+    label: "Night 1",
+    onClick: function()
+    {
+        currentScene = 2;
+        startTime = millis();
+    }
+});
+
+var leftBtn = new Button
+({
+    x: 10,
+    y: 100,
+    width: 30,
+    height: 200,
+    label: "<",
+    onClick: function()
+    {
+        if(currentScene === 5 || currentScene === 6 || currentScene === 7 || currentScene === 8)
+        {
+            currentScene--;
+        }
+        else if(currentScene === 4)
+        {
+            currentScene = 8;
+        }
+    }
+});
+
+var rightBtn = new Button
+({
+    x: 360,
+    y: 100,
+    width: 30,
+    height: 200,
+    label: ">",
+    onClick: function()
+    {
+        if(currentScene === 4 || currentScene === 5 || currentScene === 6 || currentScene === 7)
+        {
+            currentScene++;
+        }
+        else if(currentScene === 8)
+        {
+            currentScene = 4;
+        }
+    }
+});
+
+var splashScreen = function()
+{
+    currentScene = 0;
+    background(46, 46, 46);
+    var f = createFont("monospace");
+    textFont(f);
+    fill(255, 10, 10);
+    textSize(30);
+    textAlign(CENTER);
+    text("Five Nights At Freddy's ", 110, 25, 200, 400);
+    helpbtn.draw();
+    night1btn.draw();
+};
+
+var helpScreen = function()
+{
+    currentScene = 1;
+    background(46, 46, 46);
+    var f = createFont("monospace");
+    textFont(f);
+    fill(255, 255, 255);
+    textAlign(CENTER,CENTER);
+    textSize(28);
+    text("Need Help?", 200, 55);
+    textSize(15);
+    text("How to play: Click on night 1 to get started. Try and find the animatronics by clicking on the computer screen to get the different scenes of Freddy Fazbear's Pizzeria and clicking on the animatronic. Once you found it, the next night will open up. Have fun!!", 50, -10, 308, 400);
+    backbtn.draw();
+};
+
+var office = function()
+{
+    currentScene = 2;
+    noStroke();
+    rectMode(CENTER);
+    background(158, 155, 155);
+    fill(0, 0, 0);
+    rect(200, 150, 175, 130);
+    rect(200, 230, 20, 40);
+    rect(200, 250, 50, 7);
+    fill(121, 165, 184);
+    rect(200, 150, 165, 120); //computer screen
+    fill(145, 105, 68);
+    rect(200, 275, 380, 46);
+    rect(35, 340, 30, 119);
+    rect(365, 340, 30, 119);
+    
+    var night = color(17, 38, 74, 102);
+    fill(night);
+    rect(200, 200, 500, 500);
+    var lamp = color(250, 245, 168, 102);
+    fill(lamp);
+    quad(150, 0, 250, 0, 350, 270, 50, 270);
+    
+    fill(255, 255, 255);
+    text("Time: " + round((millis() - startTime)/1000), 60, 20);
+    if(round((millis() - startTime)/1000) >= 180)
+        {
+            currentScene = 10;
+        }
+};
+
+var compScreen = function()
+{
+    currentScene = 3;
+    rectMode(CENTER);
+    var f = createFont("monospace");
+    textFont(f);
+    background(86, 121, 156);
+    stroke(214, 214, 214);
+    fill(93, 101, 115);
+    rect(200, 310, 90, 70); //YOU
+    rect(85, 210, 90, 70); //CAM 1
+    rect(85, 110, 90, 70); //CAM 2
+    rect(200, 110, 90, 70);//CAM 3
+    rect(315, 110, 90, 70);//CAM 4
+    rect(315, 210, 90, 70);//CAM 5
+    
+    fill(214, 214, 214);
+    textSize(20);
+    textAlign(CENTER, CENTER);
+    text("YOU", 200, 310);
+    text("CAM 1", 85, 210);
+    text("CAM 2", 85, 110);
+    text("CAM 3", 200, 110);
+    text("CAM 4", 315, 110);
+    text("CAM 5", 315, 210);
+    
+    line(85, 245, 85, 310);
+    line(85, 310, 155, 310);
+    line(85, 145, 85, 175);
+    line(130, 110, 155, 110);
+    line(245, 110, 270, 110);
+    line(315, 145, 315, 175);
+    line(315, 245, 315, 310);
+    line(245, 310, 315, 310);
+    
+    fill(255, 255, 255);
+    text("Time: " + round((millis() - startTime)/1000), 60, 20);
+    if(round((millis() - startTime)/1000) >= 180)
+        {
+            currentScene = 10;
+        }
+};
+
+var cam1 = function()
+{
+    currentScene = 4;
+    noStroke();
+    rectMode(CENTER);
+    background(158, 155, 155);
+    fill(122, 106, 83);
+    quad(150, 150, 250, 150, 370, 400, 30, 400);
+    fill(138, 136, 136);
+    rect(200, 75, 100, 150);
+    fill(87, 81, 81);
+    rect(200, 100, 60, 100);
+    quad(100, 90, 100, 255, 70, 320, 70, 135);
+    
+    if(bonNum >= 1 && bonNum <= 10)
+    {
+        drawBonnie(130, 95, 70);
+    }
+    
+    var night = color(11, 13, 18, 102);
+    fill(night);
+    rect(0, 0, 5000, 5000);
+    rectMode(LEFT);
+    compbtn.draw();
+    leftBtn.draw();
+    rightBtn.draw();
+    
+    fill(255, 255, 255);
+    text("Time: " + round((millis() - startTime)/1000), 60, 20);
+    if(round((millis() - startTime)/1000) >= 180)
+        {
+            currentScene = 10;
+        }
+};
+
+var cam2 = function()
+{
+    currentScene = 5;
+    noStroke();
+    rectMode(CENTER);
+    background(158, 155, 155);
+    fill(122, 106, 83);
+    quad(-30, 225, 250, 225, 370, 400, -77, 400);
+    fill(138, 136, 136);
+    rect(120, 110, 260, 230);
+    fill(87, 81, 81);
+    quad(325, 120, 325, 335, 285, 275, 285, 75);
+    
+    fill(87, 56, 18);
+    quad(-10, 40, 250, 40, 270, 50, -10, 50);
+    quad(-10, 110, 250, 110, 270, 120, -10, 120);
+    quad(-10, 180, 250, 180, 270, 190, -10, 190);
+    
+    fill(87, 70, 45);
+    quad(-65, 215, 65, 215, 120, 350, -25, 350);
+    fill(64, 51, 33);
+    rect(10, 355, 220, 15);
+    rect(110, 385, 20, 70);
+    
+    if(bonNum >= 11 && bonNum <= 20)
+    {
+        drawBonnie(85, 160, 110);
+    }
+    
+    var night = color(11, 13, 18, 102);
+    fill(night);
+    rect(0, 0, 5000, 5000);
+    rectMode(LEFT);
+    compbtn.draw();
+    leftBtn.draw();
+    rightBtn.draw();
+    
+    fill(255, 255, 255);
+    text("Time: " + round((millis() - startTime)/1000), 60, 20);
+    if(round((millis() - startTime)/1000) >= 180)
+        {
+            currentScene = 10;
+        }
+};
+
+var cam3 = function()
+{
+    currentScene = 6;
+    noStroke();
+    rectMode(CENTER);
+    background(158, 155, 155);
+    fill(122, 106, 83);
+    quad(30, 340, 370, 340, 450, 420, -50, 420);
+    fill(140, 41, 41);
+    rect(200, 0, 100, 54);
+    ellipse(400, 30, 415, 143);
+    ellipse(0, 30, 415, 143);
+    ellipse(0, 75, 120, 355);
+    ellipse(400, 75, 120, 355);
+    quad(0, 240, 20, 240, 50, 420, -50, 420);
+    quad(381, 240, 400, 240, 420, 420, 350, 420);
+    
+    if(bonNum >= 21 && bonNum <= 30)
+    {
+        drawBonnie(-5, 155, 110);
+    }
+    if(chicaNum >= 21 && chicaNum <= 30)
+    {
+        drawChica(200, 155, 110);
+    }
+    
+    drawFreddy(85, 160, 120);
+    
+    rectMode(LEFT);
+    var night = color(11, 13, 18, 102);
+    fill(night);
+    rect(0, 0, 5000, 5000);
+    rectMode(LEFT);
+    compbtn.draw();
+    leftBtn.draw();
+    rightBtn.draw();
+    
+    fill(255, 255, 255);
+    text("Time: " + round((millis() - startTime)/1000), 60, 20);
+    if(round((millis() - startTime)/1000) >= 180)
+        {
+            currentScene = 10;
+        }
+};
+
+var cam4 = function()
+{
+    currentScene = 7;
+    noStroke();
+    rectMode(CENTER);
+    background(158, 155, 155);
+    fill(122, 106, 83);
+    quad(100, 150, 300, 150, 550, 400, -150, 400);
+    fill(138, 136, 136);
+    rect(200, 75, 200, 150);
+    fill(214, 230, 229);
+    quad(160, 120, 315, 120, 350, 150, 150, 150);
+    fill(163, 194, 192);
+    rect(250, 167, 200, 35);
+    
+    fill(214, 230, 229);
+    quad(140, 175, 380, 175, 465, 240, 120, 240);
+    fill(87, 70, 45);
+    rect(150, 300, 20, 60);
+    
+    fill(163, 194, 192);
+    rect(275, 262, 310, 45);
+    
+    fill(87, 81, 81);
+    quad(80, 20, 80, 170, 10, 240, 10, 85);
+    
+    if(chicaNum >= 11 && chicaNum <= 20)
+    {
+        drawChica(140, 210, 130);
+    }
+    
+    var night = color(11, 13, 18, 102);
+    fill(night);
+    rect(0, 0, 5000, 5000);
+    rectMode(LEFT);
+    compbtn.draw();
+    leftBtn.draw();
+    rightBtn.draw();
+    
+    fill(255, 255, 255);
+    text("Time: " + round((millis() - startTime)/1000), 60, 20);
+    if(round((millis() - startTime)/1000) >= 180)
+        {
+            currentScene = 10;
+        }
+};
+
+var cam5 = function()
+{
+    currentScene = 8;
+    noStroke();
+    rectMode(CENTER);
+    background(158, 155, 155);
+    fill(122, 106, 83);
+    quad(150, 150, 250, 150, 370, 400, 30, 400);
+    fill(138, 136, 136);
+    rect(200, 75, 100, 150);
+    fill(87, 81, 81);
+    rect(200, 100, 60, 100);
+    quad(100, 90, 100, 255, 70, 320, 70, 135);
+    quad(275, 65, 300, 110, 300, 256, 275, 202);
+    
+    if(chicaNum >= 1 && chicaNum <= 10)
+    {
+        drawChica(100, 175, 100);
+    }
+    
+    var night = color(11, 13, 18, 102);
+    fill(night);
+    rect(0, 0, 5000, 5000);
+    rectMode(LEFT);
+    compbtn.draw();
+    leftBtn.draw();
+    rightBtn.draw();
+    
+    fill(255, 255, 255);
+    text("Time: " + round((millis() - startTime)/1000), 60, 20);
+    if(round((millis() - startTime)/1000) >= 180)
+        {
+            currentScene = 10;
+        }
+};
+
+var lostEnd = function()
+{
+    rectMode(LEFT);
+    currentScene = 9;
+    background(28, 21, 21);
+    fill(255, 0, 0);
+    textSize(50);
+    text("You Lost", 200, 200);
+};
+
+var winEnd = function()
+{
+    rectMode(LEFT);
+    currentScene = 10;
+    background(28, 21, 21);
+    fill(255, 0, 0);
+    textSize(50);
+    text("You Win!", 200, 200);
+};
+
+mouseClicked = function()
+{
+    if (currentScene === 0)//splash screen
+    {
+        helpbtn.handleMouseClick();
+        night1btn.handleMouseClick();
+    }
+    else if(currentScene === 1)//help screen
+    {
+        backbtn.handleMouseClick();
+    }
+    else if(currentScene === 2 && mouseX > 115 && mouseX < 285 && mouseY > 90 && mouseY < 210)
+    {
+        currentScene = 3;
+    }
+    else if(currentScene === 3)//computer screen
+    {
+        if(mouseX > 155 && mouseX < 245 && mouseY > 275 && mouseY < 345)//you
+        {
+            currentScene = 2;
+        }
+        else if(mouseX > 40 && mouseX < 130 && mouseY > 175 && mouseY < 245)//cam1
+        {
+            currentScene = 4;
+        }
+        else if(mouseX > 40 && mouseX < 130 && mouseY > 75 && mouseY < 145)//cam2
+        {
+            currentScene = 5;
+        }
+        else if(mouseX > 155 && mouseX < 245 && mouseY > 75 && mouseY < 145)//cam3
+        {
+            currentScene = 6;
+        }
+        else if(mouseX > 270 && mouseX < 360 && mouseY > 75 && mouseY < 145)//cam4
+        {
+            currentScene = 7;
+        }
+        else if(mouseX > 270 && mouseX < 360 && mouseY > 175 && mouseY < 245)//cam4
+        {
+            currentScene = 8;
+        }
+    }
+    else if(currentScene === 4 || currentScene === 5 || currentScene === 6 || currentScene === 7 || currentScene === 8)
+    {
+        leftBtn.handleMouseClick();
+        rightBtn.handleMouseClick();
+        compbtn.handleMouseClick();
+        if(chicaNum >= 1 && chicaNum <= 10 && mouseX >= 140 && mouseX <= 260 && mouseY >= 130 && mouseY <= 370 || chicaNum >= 11 && chicaNum <= 20 && mouseX >= 200 && mouseX <= 340 && mouseY >= 170 && mouseY <= 450)
+        {
+            chicaNum = 25;
+        }
+        if(bonNum >= 1 && bonNum <= 10 && mouseX >= 160 && mouseX <= 240 && mouseY >= 50 && mouseY <= 230 || bonNum >= 11 && bonNum <= 20 && mouseX >= 130 && mouseX <= 260 && mouseY >= 100 && mouseY <= 370)
+        {
+            bonNum = 25;
+        }
+    }
+};
+
+draw = function() {
+    if (currentScene === 0)
+    {
+        splashScreen();
+    }
+    else if (currentScene === 1)
+    {
+        helpScreen();
+    }
+    else if(currentScene === 2)
+    {
+        office();
+    }
+    else if(currentScene === 3)
+    {
+        compScreen();
+    }
+    else if(currentScene === 4)
+    {
+        cam1();
+    }
+    else if(currentScene === 5)
+    {
+        cam2();
+    }
+    else if(currentScene === 6)
+    {
+        cam3();
+    }
+    else if(currentScene === 7)
+    {
+        cam4();
+    }
+    else if(currentScene === 8)
+    {
+        cam5();
+    }
+    else if(currentScene === 9)
+    {
+        lostEnd();
+    }
+    else if(currentScene === 10)
+    {
+        winEnd();
+    }
+};
